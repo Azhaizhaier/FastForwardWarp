@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\core">
+      <UniqueIdentifier>{2914e4c0-d845-4c16-a528-f7624fc23055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\io">
+      <UniqueIdentifier>{2e75791b-56ec-47a4-8073-1bdb9f423f36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\warp">
+      <UniqueIdentifier>{adb47c52-b990-4b4c-8e4f-e2d1b41a36af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\postprocess">
+      <UniqueIdentifier>{833af67b-dfaf-4bb7-9531-0b62caf22137}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\display">
+      <UniqueIdentifier>{86afc7ff-8c1e-4433-95fc-c72316b4016c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\data">
+      <UniqueIdentifier>{bcbcc04a-d532-49ab-b370-9949c5a11d6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\utils">
+      <UniqueIdentifier>{ad11af2e-f4b6-4463-8b52-a81425f1d692}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageLoader.cpp">
+      <Filter>源文件\io</Filter>
+    </ClCompile>
+    <ClCompile Include="WarpingEngine.cpp">
+      <Filter>源文件\warp</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Benchmark.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="DisparityWarpEngine.cpp">
+      <Filter>源文件\warp</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenMPDisparityWarpEngine.cpp">
+      <Filter>源文件\warp</Filter>
+    </ClCompile>
+    <ClCompile Include="CudaWarpEngine.cpp">
+      <Filter>源文件\warp</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Frame.h">
+      <Filter>源文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageLoader.h">
+      <Filter>源文件\io</Filter>
+    </ClInclude>
+    <ClInclude Include="WarpingEngine.h">
+      <Filter>源文件\warp</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>源文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Benchmark.h">
+      <Filter>源文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="DisparityWarpEngine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenMPDisparityWarpEngine.h">
+      <Filter>源文件\warp</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaWarpEngine.h">
+      <Filter>源文件\warp</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaWarpKernel.cuh">
+      <Filter>源文件\warp</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TransformationSolution.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="CudaWarpKernel.cu">
+      <Filter>源文件\warp</Filter>
+    </CudaCompile>
+  </ItemGroup>
+</Project>
