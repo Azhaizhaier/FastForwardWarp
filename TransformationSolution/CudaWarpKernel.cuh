@@ -2,7 +2,7 @@
 
 #include <cuda_runtime.h>
 
-void launchWarpKernelMultiView(
+void launchWarpKernel(
     uchar3* d_rgb,
     float* d_disp,
     uchar3* d_warped,
@@ -10,5 +10,5 @@ void launchWarpKernelMultiView(
     unsigned char* d_holeMask,
     int width,
     int height,
-    int numViews,
+    int viewOffset,
     float disparityGain);

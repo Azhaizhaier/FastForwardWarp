@@ -20,42 +20,83 @@ void WarpingEngine::processOptimizeByPtr(Frame& frame)
 {
     const int width = frame.rgb.cols;
     const int height = frame.rgb.rows;
-    cv::Mat depth = normalizeDepth(frame.depth);
 
-    frame.warpedViews.resize(this->m_numViews);
-    frame.holeMasks.resize(this->m_numViews);
+    frame.warpedViews.resize(VIEWS_NUM);
+    frame.holeMasks.resize(VIEWS_NUM);
 
-    for (int v = 0; v < this->m_numViews; v++)
+    for (int v = 0; v < VIEWS_NUM; v++)
     {
-        cv::Mat warped(height, width, CV_8UC3, cv::Scalar(0, 0, 0));
-        cv::Mat mask(height, width, CV_8UC1, cv::Scalar(255));
-        cv::Mat zBuffer(height, width, CV_8UC1, cv::Scalar(MAX_DEPTH));
+        cv::Mat warped(
+            height,
+            width,
+            CV_8UC3,
+            cv::Scalar(0, 0, 0));
 
-        int viewOffset = v - this->m_numViews / 2;
+        cv::Mat mask(
+            height,
+            width,
+            CV_8UC1,
+            cv::Scalar(255));
+
+        cv::Mat zBuffer(
+            height,
+            width,
+            CV_8UC1,
+            cv::Scalar(MAX_DEPTH));
+
+        const int viewOffset =
+            v - CENTER_VIEW;
 
         for (int y = 0; y < height; y++)
         {
-            const uchar* depthRow = depth.ptr<uchar>(y);
-            const cv::Vec3b* rgbRow = frame.rgb.ptr<cv::Vec3b>(y);
-            cv::Vec3b* warpedRow = warped.ptr<cv::Vec3b>(y);
-            uchar* maskRow = mask.ptr<uchar>(y);
-            uchar* zRow = zBuffer.ptr<uchar>(y);
+            const uchar* depthRow =
+                frame.depth.ptr<uchar>(y);
+
+            const cv::Vec3b* rgbRow =
+                frame.rgb.ptr<cv::Vec3b>(y);
+
+            uchar* zRow =
+                zBuffer.ptr<uchar>(y);
+
+            uchar* maskRow =
+                mask.ptr<uchar>(y);
+
+            cv::Vec3b* warpedRow =
+                warped.ptr<cv::Vec3b>(y);
 
             for (int x = 0; x < width; x++)
             {
-                uchar depthValue = depthRow[x];
-                if (depthValue == 0) continue;
+                const uchar depthValue =
+                    depthRow[x];
 
-                int disparity = static_cast<int>(
-                    (MAX_DEPTH - depthValue) * DISPARITY_SCALE * viewOffset);
-                int newX = x - disparity;
-                if (newX < 0 || newX >= width) continue;
+                if (depthValue == 0)
+                    continue;
+
+                const int disparity =
+                    static_cast<int>(
+                        (MAX_DEPTH - depthValue)
+                        * DISPARITY_SCALE
+                        * viewOffset);
+
+                const int newX =
+                    x - disparity;
+
+                if (newX < 0 ||
+                    newX >= width)
+                {
+                    continue;
+                }
 
                 if (depthValue < zRow[newX])
                 {
-                    warpedRow[newX] = rgbRow[x];
-                    zRow[newX] = depthValue;
-                    maskRow[newX] = 0;
+                    warpedRow[newX] =
+                        rgbRow[x];
+
+                    zRow[newX] =
+                        depthValue;
+
+                    maskRow[newX] =
+                        0;
                 }
             }
         }

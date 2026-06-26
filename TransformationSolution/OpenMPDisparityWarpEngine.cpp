@@ -25,7 +25,7 @@ void OpenMPDisparityWarpEngine::process(Frame& frame)
 			height,
 			width,
 			CV_8UC1,
-			cv::Scalar(255)); // 初始化为全白，表示没有hole
+			cv::Scalar(255)); // 初始化为全白，全为空洞
 
 		cv::Mat zBuffer(
 			height,
@@ -46,6 +46,8 @@ void OpenMPDisparityWarpEngine::process(Frame& frame)
 
 			float* zRow = zBuffer.ptr<float>(y);
 
+			uchar* maskRow = mask.ptr<uchar>(y);
+
 			for (int x = 0; x < width; x++) {
 
 				float disparity = dispRow[x];
@@ -57,7 +59,7 @@ void OpenMPDisparityWarpEngine::process(Frame& frame)
 				int shift = static_cast<int>(disparity * DISPARITY_GAIN * viewOffset);
 
 
-				int newX = x - shift;
+				int newX = x + shift;
 
 				if (newX < 0 || newX >= width) {
 					continue; // 跳出边界
@@ -66,7 +68,7 @@ void OpenMPDisparityWarpEngine::process(Frame& frame)
 				if (disparity > zRow[newX]) { // 因为视差值越大，物体越近，所以应该使用较小的视差值来更新zBuffer
 					zRow[newX] = disparity;
 					warpedRow[newX] = rgbRow[x];
-					mask.at<uchar>(y, newX) = 0; // 标记为hole
+					maskRow[newX] = 0; // 不是空洞
 				}
 			}
 		}

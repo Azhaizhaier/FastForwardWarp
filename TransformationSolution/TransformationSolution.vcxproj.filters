@@ -60,6 +60,9 @@
     <ClCompile Include="CudaWarpEngine.cpp">
       <Filter>源文件\warp</Filter>
     </ClCompile>
+    <ClCompile Include="SummaryTools.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Frame.h">
@@ -77,9 +80,6 @@
     <ClInclude Include="Benchmark.h">
       <Filter>源文件\core</Filter>
     </ClInclude>
-    <ClInclude Include="DisparityWarpEngine.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="OpenMPDisparityWarpEngine.h">
       <Filter>源文件\warp</Filter>
     </ClInclude>
@@ -90,6 +90,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CudaWarpKernel.cuh">
+      <Filter>源文件\warp</Filter>
+    </ClInclude>
+    <ClInclude Include="SummaryTools.h">
+      <Filter>源文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="DisparityWarpEngine.h">
       <Filter>源文件\warp</Filter>
     </ClInclude>
   </ItemGroup>

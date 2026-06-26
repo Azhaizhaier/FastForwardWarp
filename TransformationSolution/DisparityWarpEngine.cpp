@@ -40,6 +40,8 @@ void DisparityWarpEngine::process(Frame& frame)
 
 			float* zRow = zBuffer.ptr<float>(y);
 
+			uchar* maskRow = mask.ptr<uchar>(y);
+
 			for (int x = 0; x < width; x++) {
 
 				float disparity = dispRow[x];
@@ -50,7 +52,7 @@ void DisparityWarpEngine::process(Frame& frame)
 
 				int shift = static_cast<int>(disparity * DISPARITY_GAIN * viewOffset);
 
-				int newX = x - shift; //???为啥是减去shift？因为视差越大，物体越近，应该向左移动（对于右视图）或者向右移动（对于左视图）
+				int newX = x + shift; //???为啥是减去shift？因为视差越大，物体越近，应该向左移动（对于右视图）或者向右移动（对于左视图）
 
 				if (newX < 0 || newX >= width) {
 					continue; // 跳出边界
@@ -62,7 +64,7 @@ void DisparityWarpEngine::process(Frame& frame)
 
 					zRow[newX] = disparity; // 更新zBuffer
 
-					mask.at<uchar>(y, newX) = 0; // 标记为非hole
+					maskRow[newX] = 0; // 标记为非hole
 				}
 			}
 		}
@@ -70,5 +72,5 @@ void DisparityWarpEngine::process(Frame& frame)
 		frame.warpedViews[v] = warped;
 		frame.holeMasks[v] = mask;
 	}
-	std::cout << "Multi-view warping completed - herited override" << std::endl;
+	//std::cout << "Multi-view warping completed - herited override" << std::endl;
 }	
