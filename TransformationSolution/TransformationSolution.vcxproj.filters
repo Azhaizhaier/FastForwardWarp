@@ -22,16 +22,13 @@
     <Filter Include="源文件\warp">
       <UniqueIdentifier>{adb47c52-b990-4b4c-8e4f-e2d1b41a36af}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\postprocess">
-      <UniqueIdentifier>{833af67b-dfaf-4bb7-9531-0b62caf22137}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\display">
       <UniqueIdentifier>{86afc7ff-8c1e-4433-95fc-c72316b4016c}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\data">
       <UniqueIdentifier>{bcbcc04a-d532-49ab-b370-9949c5a11d6d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\utils">
+    <Filter Include="源文件\Analysis">
       <UniqueIdentifier>{ad11af2e-f4b6-4463-8b52-a81425f1d692}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -45,12 +42,6 @@
     <ClCompile Include="WarpingEngine.cpp">
       <Filter>源文件\warp</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
-    <ClCompile Include="Benchmark.cpp">
-      <Filter>源文件\core</Filter>
-    </ClCompile>
     <ClCompile Include="DisparityWarpEngine.cpp">
       <Filter>源文件\warp</Filter>
     </ClCompile>
@@ -60,8 +51,26 @@
     <ClCompile Include="CudaWarpEngine.cpp">
       <Filter>源文件\warp</Filter>
     </ClCompile>
-    <ClCompile Include="SummaryTools.cpp">
-      <Filter>源文件\utils</Filter>
+    <ClCompile Include="WarpAnalyzer.cpp">
+      <Filter>源文件\Analysis</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiViewDirectWarpEngine.cpp">
+      <Filter>源文件\warp</Filter>
+    </ClCompile>
+    <ClCompile Include="LenticularInterlacing.cpp">
+      <Filter>源文件\display</Filter>
+    </ClCompile>
+    <ClCompile Include="HoleAnalyzer.cpp">
+      <Filter>源文件\Analysis</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>源文件\Analysis</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthPreprocessor.cpp">
+      <Filter>源文件\io</Filter>
+    </ClCompile>
+    <ClCompile Include="InverseInterlacing.cpp">
+      <Filter>源文件\display</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,12 +82,6 @@
     </ClInclude>
     <ClInclude Include="WarpingEngine.h">
       <Filter>源文件\warp</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>源文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="Benchmark.h">
-      <Filter>源文件\core</Filter>
     </ClInclude>
     <ClInclude Include="OpenMPDisparityWarpEngine.h">
       <Filter>源文件\warp</Filter>
@@ -92,11 +95,35 @@
     <ClInclude Include="CudaWarpKernel.cuh">
       <Filter>源文件\warp</Filter>
     </ClInclude>
-    <ClInclude Include="SummaryTools.h">
-      <Filter>源文件\utils</Filter>
+    <ClInclude Include="WarpAnalyzer.h">
+      <Filter>源文件\Analysis</Filter>
     </ClInclude>
     <ClInclude Include="DisparityWarpEngine.h">
       <Filter>源文件\warp</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiViewDirectWarpEngine.h">
+      <Filter>源文件\warp</Filter>
+    </ClInclude>
+    <ClInclude Include="InterlacingFilter.h">
+      <Filter>源文件\display</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayConfig.h">
+      <Filter>源文件\display</Filter>
+    </ClInclude>
+    <ClInclude Include="LenticularInterlacing.h">
+      <Filter>源文件\display</Filter>
+    </ClInclude>
+    <ClInclude Include="HoleAnalyzer.h">
+      <Filter>源文件\Analysis</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>源文件\Analysis</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthPreprocessor.h">
+      <Filter>源文件\io</Filter>
+    </ClInclude>
+    <ClInclude Include="InverseInterlacing.h">
+      <Filter>源文件\display</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

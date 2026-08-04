@@ -1,21 +1,27 @@
-#pragma once
+ï»¿#pragma once
 #include <opencv2/opencv.hpp>
 
 struct Frame
 {
 	cv::Mat rgb; //RGB
-	cv::Mat depth; //Depth
-	//cv::Mat disparity;//ÊÓ²î
+	cv::Mat depth; // signed disparity (after DepthPreprocessor)
+	cv::Mat depthOrig; // original non-negative disparity (for z-buffer)
+	//cv::Mat disparity;//è§†å·®
 
 	std::vector<cv::Mat> warpedViews; //Warped RGBs
 	std::vector<cv::Mat> holeMasks; //Hole Mask
+
+	cv::Mat interlacedImage;   // æ˜¾ç¤º
+    cv::Mat interlacedHoleMask; 
 };
 
-constexpr auto MAX_DEPTH = 255; // ×î´óÉî¶ÈÖµ£¬µ¥Î»»Ò¶È¼¶
-constexpr auto MAX_OFFSET = 10; // ×î´óÊÓ²îÆ«ÒÆ£¬µ¥Î»ÏñËØ
-constexpr auto VIEWS_NUM = 5; // Éú³ÉµÄÊÓÍ¼ÊıÁ¿
-constexpr auto CENTER_VIEW = VIEWS_NUM / 2; // ÖĞ¼äÊÓÍ¼Ë÷Òı
-constexpr auto DISPARITY_SCALE = MAX_OFFSET / static_cast<float>(MAX_DEPTH); // Éî¶Èµ½ÊÓ²îµÄËõ·ÅÒò×Ó
+constexpr auto MAX_DEPTH = 255; // æœ€å¤§æ·±åº¦å€¼ï¼Œå•ä½ç°åº¦çº§
+constexpr auto MAX_OFFSET = 10; // æœ€å¤§è§†å·®åç§»ï¼Œå•ä½åƒç´ 
+constexpr auto VIEWS_NUM = 5; // ç”Ÿæˆçš„è§†å›¾æ•°é‡
+constexpr auto CENTER_VIEW = VIEWS_NUM / 2; // ä¸­é—´è§†å›¾ç´¢å¼•
+constexpr auto DISPARITY_SCALE = MAX_OFFSET / static_cast<float>(MAX_DEPTH); // æ·±åº¦åˆ°è§†å·®çš„ç¼©æ”¾å› å­
 
 
-constexpr auto DISPARITY_GAIN = 0.1f; // ÊÓÍ¼Ëõ·ÅÒò×Ó£¬±£³ÖÔ­Ê¼·Ö±æÂÊ
+constexpr auto DISPARITY_GAIN = 0.3f; // è§†å›¾ç¼©æ”¾å› å­ï¼Œä¿æŒåŸå§‹åˆ†è¾¨ç‡
+
+constexpr int MAX_VIEWS = 32; //æœ€å¤šè§†å›¾æ•°

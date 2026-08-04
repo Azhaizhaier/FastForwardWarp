@@ -1,4 +1,4 @@
-#include"ImageLoader.h"
+ï»¿#include"ImageLoader.h"
 #include<iostream>
 #include<fstream>
 #include<vector>
@@ -12,18 +12,20 @@ Frame ImageLoader::loaderFrame(const std::string& rgb_path, const std::string& d
 
 	if (extension == "pfm") {
 		frame.depth = loadPFM(depth_path);
+		frame.depthOrig = frame.depth.clone();
 	}
 	else {
 		frame.depth = cv::imread(depth_path, cv::IMREAD_GRAYSCALE);
+		frame.depthOrig = frame.depth.clone();
 	}
 
 	return frame;
 }
 cv::Mat ImageLoader::loadPFM(const std::string& filename)
 {
-	// ÕâÀï¿ÉÒÔÊµÏÖPFMÎÄ¼şµÄ¼ÓÔØÂß¼­
-	// PFMÊÇÒ»ÖÖ¸ß¶¯Ì¬·¶Î§Í¼Ïñ¸ñÊ½£¬Í¨³£ÓÃÓÚ´æ´¢Éî¶ÈÍ¼»ò¸¡µãÍ¼Ïñ
-	// Äã¿ÉÒÔ²Î¿¼Ïà¹ØÎÄµµ»ò¿âÀ´ÊµÏÖÕâ¸ö¹¦ÄÜ
+	// è¿™é‡Œå¯ä»¥å®ç°PFMæ–‡ä»¶çš„åŠ è½½é€»è¾‘
+	// PFMæ˜¯ä¸€ç§é«˜åŠ¨æ€èŒƒå›´å›¾åƒæ ¼å¼ï¼Œé€šå¸¸ç”¨äºå­˜å‚¨æ·±åº¦å›¾æˆ–æµ®ç‚¹å›¾åƒ
+	// ä½ å¯ä»¥å‚è€ƒç›¸å…³æ–‡æ¡£æˆ–åº“æ¥å®ç°è¿™ä¸ªåŠŸèƒ½
 	std::ifstream file(filename, std::ios::binary);
 	if (!file.is_open()) {
 		std::cerr << "Failed to open PFM file: " << filename << std::endl;
@@ -44,10 +46,10 @@ cv::Mat ImageLoader::loadPFM(const std::string& filename)
 
 	file >> width >> height;
 
-	float scale; // Õâ¸öÖµ¿ÉÒÔÓÃÀ´ÅĞ¶ÏÍ¼ÏñµÄ×Ö½ÚĞò£¬ÕıÊı±íÊ¾´ó¶ËĞò£¬¸ºÊı±íÊ¾Ğ¡¶ËĞò
+	float scale; // è¿™ä¸ªå€¼å¯ä»¥ç”¨æ¥åˆ¤æ–­å›¾åƒçš„å­—èŠ‚åºï¼Œæ­£æ•°è¡¨ç¤ºå¤§ç«¯åºï¼Œè´Ÿæ•°è¡¨ç¤ºå°ç«¯åº
 	file >> scale;
 
-	file.ignore(1); // Ìø¹ıÒ»¸ö»»ĞĞ·û	
+	file.ignore(1); // è·³è¿‡ä¸€ä¸ªæ¢è¡Œç¬¦	
 	
 	cv::Mat disparity(height, width, CV_32FC1);
 
@@ -58,7 +60,7 @@ cv::Mat ImageLoader::loadPFM(const std::string& filename)
 	return disparity;
 }
 
-//ÏÔÊ¾ÊÓ²îÍ¼£¬OpenCV
+//æ˜¾ç¤ºè§†å·®å›¾ï¼ŒOpenCV
 cv::Mat ImageLoader::disparityToDisplay(const cv::Mat& disparity)
 {
 	cv::Mat display;

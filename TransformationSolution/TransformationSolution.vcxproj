@@ -139,26 +139,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Benchmark.cpp" />
     <ClCompile Include="CudaWarpEngine.cpp" />
+    <ClCompile Include="DepthPreprocessor.cpp" />
     <ClCompile Include="DisparityWarpEngine.cpp" />
+    <ClCompile Include="HoleAnalyzer.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
+    <ClCompile Include="InverseInterlacing.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MultiViewDirectWarpEngine.cpp" />
     <ClCompile Include="OpenMPDisparityWarpEngine.cpp" />
-    <ClCompile Include="SummaryTools.cpp" />
+    <ClCompile Include="WarpAnalyzer.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WarpingEngine.cpp" />
+    <ClCompile Include="LenticularInterlacing.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Benchmark.h" />
     <ClInclude Include="CudaWarpEngine.h" />
     <ClInclude Include="CudaWarpKernel.cuh" />
+    <ClInclude Include="DepthPreprocessor.h" />
     <ClInclude Include="DisparityWarpEngine.h" />
+    <ClInclude Include="DisplayConfig.h" />
     <ClInclude Include="Frame.h" />
+    <ClInclude Include="HoleAnalyzer.h" />
     <ClInclude Include="ImageLoader.h" />
+    <ClInclude Include="InterlacingFilter.h" />
+    <ClInclude Include="InverseInterlacing.h" />
+    <ClInclude Include="LenticularInterlacing.h" />
+    <ClInclude Include="MultiViewDirectWarpEngine.h" />
     <ClInclude Include="OpenMPDisparityWarpEngine.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="SummaryTools.h" />
+    <ClInclude Include="WarpAnalyzer.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WarpingEngine.h" />
   </ItemGroup>

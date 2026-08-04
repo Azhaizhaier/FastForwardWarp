@@ -2,12 +2,15 @@
 #include <device_launch_parameters.h>
 
 /*
-* Single-view warp kernel with atomic z-buffer for correct occlusion.
+* Single-view warp kernel with atomic z-buffer.
+* disparity = signed (for shift direction)
+* origDisp  = original non-negative disparity (for z-buffer occlusion)
 */
 __global__
 void warpKernel(
     uchar3* rgb,
     float* disparity,
+    float* origDisp,
     uchar3* warped,
     float* zBuffer,
     unsigned char* holeMask,
@@ -23,12 +26,15 @@ void warpKernel(
         return;
 
     int idx = y * width + x;
-    float disp = disparity[idx];
-    if (isinf(disp))
+
+    float signedDisp = disparity[idx];
+    float origDispVal = origDisp[idx];
+
+    if (isinf(origDispVal))
         return;
 
     int shift =
-        static_cast<int>(disp * disparityGain * viewOffset);
+        static_cast<int>(signedDisp * disparityGain * viewOffset);
     int newX = x + shift;
 
     if (newX < 0 || newX >= width)
@@ -36,13 +42,12 @@ void warpKernel(
 
     int newIdx = y * width + newX;
 
-    // Atomic z-buffer: only the thread with the largest disparity
-    // at the destination position wins and writes its pixel.
+    // Atomic z-buffer using ORIGINAL disparity (non-negative)
     float oldVal = zBuffer[newIdx];
-    while (disp > oldVal)
+    while (origDispVal > oldVal)
     {
         int assumed = __float_as_int(oldVal);
-        int desired = __float_as_int(disp);
+        int desired = __float_as_int(origDispVal);
         int result = atomicCAS((int*)&zBuffer[newIdx], assumed, desired);
         if (result == assumed)
         {
@@ -57,6 +62,7 @@ void warpKernel(
 void launchWarpKernel(
     uchar3* d_rgb,
     float* d_disp,
+    float* d_origDisp,
     uchar3* d_warped,
     float* d_zBuffer,
     unsigned char* d_holeMask,
@@ -71,6 +77,6 @@ void launchWarpKernel(
         (height + block.y - 1) / block.y);
 
     warpKernel <<< grid, block >>> (
-        d_rgb, d_disp, d_warped, d_zBuffer, d_holeMask,
+        d_rgb, d_disp, d_origDisp, d_warped, d_zBuffer, d_holeMask,
         width, height, viewOffset, disparityGain);
 }

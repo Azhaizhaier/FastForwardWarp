@@ -5,6 +5,7 @@
 void launchWarpKernel(
     uchar3* d_rgb,
     float* d_disp,
+    float* d_origDisp,
     uchar3* d_warped,
     float* d_zBuffer,
     unsigned char* d_holeMask,
